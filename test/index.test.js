@@ -180,6 +180,7 @@ describe('Split-SMS', function () {
       var message;
       var splitResult;
       var validateMessageStub;
+      var getUnicodeCharactersStub;
       var splitStub;
       var result;
 
@@ -197,10 +198,11 @@ describe('Split-SMS', function () {
         };
 
         validateMessageStub = sinon.stub().returns(false);
+        getUnicodeCharactersStub = sinon.stub().returns([]);
         splitStub = sinon.stub().returns(splitResult);
 
         var splitter = proxyquire('../lib/index', {
-          './gsmvalidator': { validateMessage: validateMessageStub },
+          './gsmvalidator': { validateMessage: validateMessageStub, getUnicodeCharacters: getUnicodeCharactersStub },
           './unicodesplitter': { split: splitStub }
         });
 
@@ -253,7 +255,7 @@ describe('Split-SMS', function () {
         };
 
         var splitter = proxyquire('../lib/index', {
-          './gsmvalidator': { validateMessage: sinon.stub().returns(false) },
+          './gsmvalidator': { validateMessage: sinon.stub().returns(false), getUnicodeCharacters: sinon.stub().returns([]) },
           './unicodesplitter': { split: sinon.stub().returns(splitResult) }
         });
 
@@ -283,7 +285,7 @@ describe('Split-SMS', function () {
         };
 
         var splitter = proxyquire('../lib/index', {
-          './gsmvalidator': { validateMessage: sinon.stub().returns(false) },
+          './gsmvalidator': { validateMessage: sinon.stub().returns(false), getUnicodeCharacters: sinon.stub().returns([]) },
           './unicodesplitter': { split: sinon.stub().returns(splitResult) }
         });
 
